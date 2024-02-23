@@ -1,0 +1,5 @@
+*.o
+*.obj
+*.exp
+*.exe
+gist/
