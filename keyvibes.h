@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdbool.h>
 #include <windows.h>
 
 extern BOOL WINAPI
@@ -16,3 +17,12 @@ extern void
 extern LRESULT CALLBACK
     MouseProc(int nCode, WPARAM wParam, LPARAM lParam),
     KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
+
+extern bool
+    keystate[255];
+
+extern bool
+    IsKeyDown(DWORD key);
+
+extern void
+    ToggleKeyDown(DWORD key);

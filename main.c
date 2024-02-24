@@ -69,11 +69,27 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 
     switch (wParam) {
     case WM_KEYDOWN:
-        printf("Pressed key:  %c (0x%X)\n", key, key);
+        if (!IsKeyDown(key)) {
+            ToggleKeyDown(key);
+            printf("Pressed key:  %c (0x%X)\n", key, key);
+        }
         break;
     case WM_KEYUP:
+        ToggleKeyDown(key);
         printf("Released key: %c (0x%X)\n", key, key);
         break;
     }
     return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
+}
+
+bool keystate[255];
+
+bool IsKeyDown(DWORD key)
+{
+    return keystate[key] == true;
+}
+
+void ToggleKeyDown(DWORD key)
+{
+    keystate[key] = !keystate[key];
 }
