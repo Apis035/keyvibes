@@ -2,6 +2,7 @@
 
 #include <stdbool.h>
 #include <windows.h>
+#include "bass.h"
 
 extern BOOL WINAPI
     Exit(DWORD dwCtrlType);
@@ -26,3 +27,19 @@ extern bool
 
 extern void
     ToggleKeyDown(DWORD key);
+
+extern void
+    InitAudio(),
+    FreeAudio();
+
+typedef struct {
+    DWORD start, length;
+} SampleOffset;
+
+extern void
+    LoadSampleset(HSAMPLE *sampleset, const char *file, SampleOffset *offset, size_t length),
+    FreeSampleset(HSAMPLE *sampleset, size_t length),
+    PlaySample(HSAMPLE sample);
+
+extern HSAMPLE
+    SliceSample(HSAMPLE sample, BASS_SAMPLE info, void *data, SampleOffset offset);
