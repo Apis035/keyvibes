@@ -22,16 +22,35 @@ HHOOK
 
 void InitHook()
 {
+    MouseHook    = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, NULL, 0);
     KeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
 }
 
 void FreeHook()
 {
+    UnhookWindowsHookEx(MouseHook);
     UnhookWindowsHookEx(KeyboardHook);
 }
 
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
+    switch (wParam) {
+    case WM_LBUTTONDOWN:
+        puts("Pressed left mouse");
+        break;
+    case WM_LBUTTONUP:
+        puts("Released left mouse");
+        break;
+    case WM_RBUTTONDOWN:
+        puts("Pressed right mouse");
+        break;
+    case WM_RBUTTONUP:
+        puts("Released right mouse");
+        break;
+    case WM_MOUSEWHEEL:
+        puts("Scrolled mouse");
+        break;
+    }
     return CallNextHookEx(MouseHook, nCode, wParam, lParam);
 }
 
