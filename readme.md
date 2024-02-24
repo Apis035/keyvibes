@@ -2,14 +2,15 @@
 
 A lightweight application to play fake keyboard typing sound.
 
-App idea and keyboard sound from [Mechvibes](https://mechvibes.com/).
+Idea and keyboard sound from [Mechvibes](https://mechvibes.com/).
 
-The main idea that driven me to create this is to have an app that is fast and lightwight in size and memory, compared to Mechvibes that packages a chromium browser and uses 200 MB of RAM just to play some sounds.
+The main idea that driven me to create this is to have the same app but fast and lightwight in size and memory, compared to Mechvibes that packages a chromium browser and uses 200 MB of RAM just to play some sounds.
 
 ## Todo/planned features
 
 - [ ] Volume adjustment
 - [ ] Command line options
+- [ ] Mouse click and scroll sound
 - [ ] Minimize to system tray
 - [ ] User custom soundpack
 - [ ] Split key press/release audio
