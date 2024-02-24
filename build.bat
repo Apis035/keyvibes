@@ -1,1 +1,1 @@
-tcc *.c -o kv.exe -luser32
+tcc *.c -o kv.exe -luser32 -lbass -L. -m64
