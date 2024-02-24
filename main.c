@@ -56,12 +56,15 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
+    KBDLLHOOKSTRUCT *keyboard = (KBDLLHOOKSTRUCT *)lParam;
+    DWORD key = keyboard->vkCode;
+
     switch (wParam) {
     case WM_KEYDOWN:
-        puts("Pressed key");
+        printf("Pressed key:  %c (0x%X)\n", key, key);
         break;
     case WM_KEYUP:
-        puts("Released key");
+        printf("Released key: %c (0x%X)\n", key, key);
         break;
     }
     return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
