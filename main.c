@@ -9,6 +9,11 @@ HSAMPLE keyboardSample[255];
 
 int main()
 {
+    puts(
+        "Keyvibes v0.1" "\n"
+        "-------------"
+    );
+
     keyboardConfig = keyboardEgOreo;
     InitHook();
     InitAudio();
