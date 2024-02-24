@@ -1,10 +1,15 @@
 #include "keyvibes.h"
+#include "keyboard.h"
 #include <stdio.h>
 #include <windows.h>
 #include "bass.h"
 
+KeyboardConfig keyboardConfig;
+HSAMPLE keyboardSample[255];
+
 int main()
 {
+    keyboardConfig = keyboardEgOreo;
     InitHook();
     InitAudio();
     SetConsoleCtrlHandler(Exit, TRUE);
@@ -74,6 +79,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     case WM_KEYDOWN:
         if (!IsKeyDown(key)) {
             ToggleKeyDown(key);
+            PlaySample(keyboardSample[key]);
             printf("Pressed key:  %c (0x%X)\n", key, key);
         }
         break;
@@ -100,10 +106,12 @@ void ToggleKeyDown(DWORD key)
 void InitAudio()
 {
     BASS_Init(-1, 44100, 0, NULL, NULL);
+    LoadSampleset(keyboardSample, keyboardConfig.sampleFile, keyboardConfig.offsets, 255);
 }
 
 void FreeAudio()
 {
+    FreeSampleset(keyboardSample, 255);
     BASS_Free();
 }
 
