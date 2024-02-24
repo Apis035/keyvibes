@@ -34,6 +34,8 @@ void FreeHook()
 
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
+    MSLLHOOKSTRUCT *mouse = (MSLLHOOKSTRUCT *)lParam;
+
     switch (wParam) {
     case WM_LBUTTONDOWN:
         puts("Pressed left mouse");
@@ -47,9 +49,15 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
     case WM_RBUTTONUP:
         puts("Released right mouse");
         break;
-    case WM_MOUSEWHEEL:
-        puts("Scrolled mouse");
+    case WM_MOUSEWHEEL: {
+        short wheelDelta = HIWORD(mouse->mouseData);
+        if (wheelDelta > 0) {
+            puts("Scroll forward");
+        } else {
+            puts("Scroll backward");
+        }
         break;
+    }
     }
     return CallNextHookEx(MouseHook, nCode, wParam, lParam);
 }
