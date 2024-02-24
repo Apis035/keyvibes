@@ -1,10 +1,12 @@
 #include "keyvibes.h"
 #include <stdio.h>
 #include <windows.h>
+#include "bass.h"
 
 int main()
 {
     InitHook();
+    InitAudio();
     SetConsoleCtrlHandler(Exit, TRUE);
     while (GetMessage(NULL, NULL, 0, 0));
 }
@@ -12,6 +14,7 @@ int main()
 BOOL WINAPI Exit(DWORD dwCtrlType)
 {
     FreeHook();
+    FreeAudio();
     ExitProcess(0);
     return TRUE;
 }
@@ -92,4 +95,56 @@ bool IsKeyDown(DWORD key)
 void ToggleKeyDown(DWORD key)
 {
     keystate[key] = !keystate[key];
+}
+
+void InitAudio()
+{
+    BASS_Init(-1, 44100, 0, NULL, NULL);
+}
+
+void FreeAudio()
+{
+    BASS_Free();
+}
+
+void LoadSampleset(HSAMPLE *sampleset, const char *file, SampleOffset *offset, size_t length)
+{
+    HSAMPLE sample = BASS_SampleLoad(FALSE, file, 0, 0, 1, 0);
+
+    BASS_SAMPLE info;
+    BASS_SampleGetInfo(sample, &info);
+
+    void *data = malloc(info.length);
+    BASS_SampleGetData(sample, data);
+
+    for (size_t i = 0; i < length; i++) {
+        sampleset[i] = SliceSample(sample, info, data, offset[i]);
+    }
+
+    free(data);
+    BASS_SampleFree(sample);
+}
+
+void FreeSampleset(HSAMPLE *sampleset, size_t length)
+{
+    for (size_t i = 0; i < length; i++) {
+        BASS_SampleFree(sampleset[i]);
+    }
+}
+
+void PlaySample(HSAMPLE sample)
+{
+    HCHANNEL channel = BASS_SampleGetChannel(sample, 0);
+    BASS_ChannelPlay(channel, TRUE);
+}
+
+HSAMPLE SliceSample(HSAMPLE sample, BASS_SAMPLE info, void *data, SampleOffset offset)
+{
+    DWORD start  = BASS_ChannelSeconds2Bytes(sample, (double)offset.start  / 1000);
+    DWORD length = BASS_ChannelSeconds2Bytes(sample, (double)offset.length / 1000);
+
+    HSAMPLE slice = BASS_SampleCreate(length, info.freq, info.chans, 1, 0);
+    BASS_SampleSetData(slice, (void *)((char *)data + start));
+
+    return slice;
 }
