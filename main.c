@@ -5,7 +5,7 @@
 #include "bass.h"
 
 KeyboardConfig keyboardConfig;
-HSAMPLE keyboardSample[255];
+HSAMPLE keyboardSample[KEYBOARD_LEN];
 
 int main()
 {
@@ -96,7 +96,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
 }
 
-bool keystate[255];
+bool keystate[KEYBOARD_LEN];
 
 bool IsKeyDown(DWORD key)
 {
@@ -111,12 +111,12 @@ void ToggleKeyDown(DWORD key)
 void InitAudio()
 {
     BASS_Init(-1, 44100, 0, NULL, NULL);
-    LoadSampleset(keyboardSample, keyboardConfig.sampleFile, keyboardConfig.offsets, 255);
+    LoadSampleset(keyboardSample, keyboardConfig.sampleFile, keyboardConfig.offsets, KEYBOARD_LEN);
 }
 
 void FreeAudio()
 {
-    FreeSampleset(keyboardSample, 255);
+    FreeSampleset(keyboardSample, KEYBOARD_LEN);
     BASS_Free();
 }
 

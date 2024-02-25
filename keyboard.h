@@ -2,7 +2,7 @@
 
 typedef struct {
     const char *sampleFile;
-    SampleOffset offsets[255];
+    SampleOffset offsets[KEYBOARD_LEN];
 } KeyboardConfig;
 
 KeyboardConfig keyboardEgOreo = {

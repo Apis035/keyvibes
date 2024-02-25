@@ -4,6 +4,8 @@
 #include <windows.h>
 #include "bass.h"
 
+#define KEYBOARD_LEN 255
+
 extern BOOL WINAPI
     Exit(DWORD dwCtrlType);
 
@@ -20,7 +22,7 @@ extern LRESULT CALLBACK
     KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
 
 extern bool
-    keystate[255];
+    keystate[KEYBOARD_LEN];
 
 extern bool
     IsKeyDown(DWORD key);
