@@ -5,16 +5,20 @@
 #include "bass.h"
 
 KeyboardConfig keyboardConfig;
+bool enableOutput;
+
 HSAMPLE keyboardSample[KEYBOARD_LEN];
 
-int main()
+int main(int argc, char **argv)
 {
+    keyboardConfig = keyboardEgOreo;
+    enableOutput = false;
+
     puts(
         "Keyvibes v0.1" "\n"
         "-------------"
     );
 
-    keyboardConfig = keyboardEgOreo;
     InitHook();
     InitAudio();
     SetConsoleCtrlHandler(Exit, TRUE);
