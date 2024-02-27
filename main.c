@@ -14,6 +14,11 @@ int main(int argc, char **argv)
     keyboardConfig = keyboardEgOreo;
     enableOutput = false;
 
+    puts(
+        "Keyvibes v0.1" "\n"
+        "-------------"
+    );
+
     for (size_t arg = 1; arg < argc; arg++) {
         if (argv[arg][0] != '-') continue;
 
@@ -41,11 +46,6 @@ int main(int argc, char **argv)
             break;
         }
     }
-
-    puts(
-        "Keyvibes v0.1" "\n"
-        "-------------"
-    );
 
     InitHook();
     InitAudio();
