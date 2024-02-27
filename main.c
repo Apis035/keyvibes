@@ -47,6 +47,10 @@ int main(int argc, char **argv)
         }
     }
 
+    if (argc < 2) {
+        puts("Use -h flag to display help message.");
+    }
+
     InitHook();
     InitAudio();
     SetConsoleCtrlHandler(Exit, TRUE);
