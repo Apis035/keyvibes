@@ -6,6 +6,9 @@
 
 #define KEYBOARD_LEN 255
 
+extern void
+    ShowHelp();
+
 extern BOOL WINAPI
     Exit(DWORD dwCtrlType);
 

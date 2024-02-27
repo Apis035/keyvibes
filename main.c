@@ -18,6 +18,11 @@ int main(int argc, char **argv)
         if (argv[arg][0] != '-') continue;
 
         switch (argv[arg][1]) {
+        case 'h':
+        case '?':
+            ShowHelp(argv[0]);
+            break;
+
         case 'k':
             switch (argv[arg][2]) {
             case '1':
@@ -46,6 +51,21 @@ int main(int argc, char **argv)
     InitAudio();
     SetConsoleCtrlHandler(Exit, TRUE);
     while (GetMessage(NULL, NULL, 0, 0));
+}
+
+void ShowHelp(char **self)
+{
+    printf(
+        "Usage: %s [flags]"                                 "\n"
+        "Flags:"                                            "\n"
+        "    -h -?     Display this message."               "\n"
+        "    -k1       Use EG Oreo soundpack."              "\n"
+        "    -k2       Use CherryMX Brown ABS soundpack."   "\n"
+        "    -v        Display pressed key information."    "\n",
+        self
+    );
+
+    exit(0);
 }
 
 BOOL WINAPI Exit(DWORD dwCtrlType)
