@@ -14,6 +14,29 @@ int main(int argc, char **argv)
     keyboardConfig = keyboardEgOreo;
     enableOutput = false;
 
+    for (size_t arg = 1; arg < argc; arg++) {
+        if (argv[arg][0] != '-') continue;
+
+        switch (argv[arg][1]) {
+        case 'k':
+            switch (argv[arg][2]) {
+            case '1':
+                keyboardConfig = keyboardEgOreo;
+                puts("Using EG Oreo soundpack.");
+                break;
+            case '2':
+                keyboardConfig = keyboardCherryMxBrownAbs;
+                puts("Using CherryMX Brown soundpack.");
+                break;
+            }
+            break;
+
+        case 'v':
+            enableOutput = true;
+            break;
+        }
+    }
+
     puts(
         "Keyvibes v0.1" "\n"
         "-------------"
