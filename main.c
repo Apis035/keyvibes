@@ -102,20 +102,20 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
     switch (wParam) {
     case WM_LBUTTONDOWN:
-        puts("Pressed left mouse");
+        if (enableOutput) puts("Pressed left mouse");
         break;
     case WM_LBUTTONUP:
-        puts("Released left mouse");
+        if (enableOutput) puts("Released left mouse");
         break;
     case WM_RBUTTONDOWN:
-        puts("Pressed right mouse");
+        if (enableOutput) puts("Pressed right mouse");
         break;
     case WM_RBUTTONUP:
-        puts("Released right mouse");
+        if (enableOutput) puts("Released right mouse");
         break;
     case WM_MOUSEWHEEL: {
         short wheelDelta = HIWORD(mouse->mouseData);
-        if (wheelDelta > 0) {
+        if (enableOutput && wheelDelta > 0) {
             puts("Scroll forward");
         } else {
             puts("Scroll backward");
@@ -136,12 +136,12 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
         if (!IsKeyDown(key)) {
             ToggleKeyDown(key);
             PlaySample(keyboardSample[key]);
-            printf("Pressed key:  %c (0x%X)\n", key, key);
+            if (enableOutput) printf("Pressed key:  %c (0x%X)\n", key, key);
         }
         break;
     case WM_KEYUP:
         ToggleKeyDown(key);
-        printf("Released key: %c (0x%X)\n", key, key);
+        if (enableOutput) printf("Released key: %c (0x%X)\n", key, key);
         break;
     }
     return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
