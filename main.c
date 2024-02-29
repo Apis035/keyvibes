@@ -15,7 +15,7 @@ int main(int argc, char **argv)
     enableOutput = false;
 
     puts(
-        "Keyvibes v0.1" "\n"
+        "Keyvibes v" KV_VERSION "\n"
         "-------------"
     );
 

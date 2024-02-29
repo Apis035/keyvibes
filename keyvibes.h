@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "bass.h"
 
+#define KV_VERSION "0.2"
 #define KEYBOARD_LEN 255
 
 extern void
