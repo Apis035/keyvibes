@@ -1,1 +1,1 @@
-tcc *.c -o kv.exe -luser32 -lbass -L. -m64
+tcc *.c keyboard/*.c -o kv.exe -luser32 -lbass -L. -m64
