@@ -115,10 +115,12 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
         break;
     case WM_MOUSEWHEEL: {
         short wheelDelta = HIWORD(mouse->mouseData);
-        if (enableOutput && wheelDelta > 0) {
-            puts("Scroll forward");
-        } else {
-            puts("Scroll backward");
+        if (enableOutput) {
+            if (wheelDelta > 0) {
+                puts("Scroll forward");
+            } else {
+                puts("Scroll backward");
+            }
         }
         break;
     }
