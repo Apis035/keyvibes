@@ -9,15 +9,19 @@ bool enableOutput;
 
 HSAMPLE keyboardSample[KEYBOARD_LEN];
 
+Option option[] = {
+    {'h', "", "Print this help message"},
+    {'k', "1/2", "Set keyboard sampleset"},
+    {'v', "", "Print pressed key information"},
+    {0, NULL, NULL},
+};
+
 int main(int argc, char **argv)
 {
     keyboardConfig = keyboardEgOreo;
     enableOutput = false;
 
-    puts(
-        "Keyvibes v" KV_VERSION "\n"
-        "-------------"
-    );
+    PrintHeader();
 
     for (size_t arg = 1; arg < argc; arg++) {
         if (argv[arg][0] != '-') continue;
@@ -25,7 +29,7 @@ int main(int argc, char **argv)
         switch (argv[arg][1]) {
         case 'h':
         case '?':
-            ShowHelp(argv[0]);
+            PrintHelp(argv[0]);
             break;
 
         case 'k':
@@ -57,19 +61,31 @@ int main(int argc, char **argv)
     while (GetMessage(NULL, NULL, 0, 0));
 }
 
-void ShowHelp(char **self)
+void PrintHeader()
 {
-    printf(
-        "Usage: %s [flags]"                                 "\n"
-        "Flags:"                                            "\n"
-        "    -h -?     Display this message."               "\n"
-        "    -k1       Use EG Oreo soundpack."              "\n"
-        "    -k2       Use CherryMX Brown ABS soundpack."   "\n"
-        "    -v        Display pressed key information."    "\n",
-        self
+    puts(
+        "Keyvibes v" KV_VERSION "\n"
+        "-------------"
     );
+}
 
+void PrintHelp(const char *argv0)
+{
+    printf("Usage: %s [option...]\n", argv0);
+    printf("Options:\n");
+    PrintOption(option);
     exit(0);
+}
+
+void PrintOption(Option *option)
+{
+    for (size_t i = 0; option[i].flag; i++) {
+        printf("  -%c %-8s %s\n",
+            option[i].flag,
+            option[i].optional,
+            option[i].description
+        );
+    }
 }
 
 BOOL WINAPI Exit(DWORD dwCtrlType)

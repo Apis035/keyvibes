@@ -7,8 +7,19 @@
 #define KV_VERSION "0.2"
 #define KEYBOARD_LEN 255
 
+typedef struct {
+    char flag;
+    const char *optional;
+    const char *description;
+} Option;
+
+extern Option
+    option[];
+
 extern void
-    ShowHelp();
+    PrintHeader(),
+    PrintHelp(const char *argv0),
+    PrintOption(Option *option);
 
 extern BOOL WINAPI
     Exit(DWORD dwCtrlType);
