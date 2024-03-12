@@ -11,9 +11,15 @@ HSAMPLE keyboardSample[KEYBOARD_LEN];
 
 Option option[] = {
     {'h', "", "Print this help message"},
-    {'k', "1/2", "Set keyboard sampleset"},
+    {'k', "set", "Set keyboard sampleset"},
     {'v', "", "Print pressed key information"},
     {0, NULL, NULL},
+};
+
+KeyboardList keyboardList[] = {
+    {'q', "CherryMX Brown ABS"},
+    {'w', "EG Oreo"},
+    {0, NULL},
 };
 
 int main(int argc, char **argv)
@@ -74,6 +80,8 @@ void PrintHelp(const char *argv0)
     printf("Usage: %s [option...]\n", argv0);
     printf("Options:\n");
     PrintOption(option);
+    printf("Keyboard sampleset:\n");
+    PrintKeyboardList(keyboardList);
     exit(0);
 }
 
@@ -85,6 +93,13 @@ void PrintOption(Option *option)
             option[i].optional,
             option[i].description
         );
+    }
+}
+
+void PrintKeyboardList(KeyboardList *list)
+{
+    for (size_t i = 0; list[i].id; i++) {
+        printf("  %c  %s\n", list[i].id, list[i].name);
     }
 }
 

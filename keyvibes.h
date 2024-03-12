@@ -16,10 +16,19 @@ typedef struct {
 extern Option
     option[];
 
+typedef struct {
+    char id;
+    const char *name;
+} KeyboardList;
+
+extern KeyboardList
+    keyboardList[];
+
 extern void
     PrintHeader(),
     PrintHelp(const char *argv0),
-    PrintOption(Option *option);
+    PrintOption(Option *option),
+    PrintKeyboardList(KeyboardList *list);
 
 extern BOOL WINAPI
     Exit(DWORD dwCtrlType);
