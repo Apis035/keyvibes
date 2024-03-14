@@ -39,6 +39,19 @@ extern void
     PrintOption(Option *option),
     PrintKeyboardList(KeyboardList *list);
 
+typedef struct {
+    bool showHelp;
+    bool verbose;
+    KeyboardConfig keyboardConfig;
+} Flags;
+
+extern Flags
+    flags;
+
+extern void
+    InitFlags(Flags *flags),
+    ParseFlags(Flags *flags, int argc, const char **argv);
+
 extern BOOL WINAPI
     Exit(DWORD dwCtrlType);
 

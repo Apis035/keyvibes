@@ -4,9 +4,6 @@
 #include <windows.h>
 #include "bass.h"
 
-KeyboardConfig keyboardConfig;
-bool enableOutput;
-
 HSAMPLE keyboardSample[KEYBOARD_LEN];
 
 Option option[] = {
@@ -22,39 +19,17 @@ KeyboardList keyboardList[] = {
     {0, NULL},
 };
 
+Flags flags;
+
 int main(int argc, char **argv)
 {
-    keyboardConfig = keyboardEgOreo;
-    enableOutput = false;
-
     PrintHeader();
 
-    for (size_t arg = 1; arg < argc; arg++) {
-        if (argv[arg][0] != '-') continue;
+    InitFlags(&flags);
+    ParseFlags(&flags, argc, argv);
 
-        switch (argv[arg][1]) {
-        case 'h':
-        case '?':
-            PrintHelp(argv[0]);
-            break;
-
-        case 'k':
-            switch (argv[arg][2]) {
-            case '1':
-                keyboardConfig = keyboardEgOreo;
-                puts("Using EG Oreo soundpack.");
-                break;
-            case '2':
-                keyboardConfig = keyboardCherryMxBrownAbs;
-                puts("Using CherryMX Brown soundpack.");
-                break;
-            }
-            break;
-
-        case 'v':
-            enableOutput = true;
-            break;
-        }
+    if (flags.showHelp) {
+        PrintHelp(argv[0]);
     }
 
     if (argc < 2) {
@@ -103,6 +78,36 @@ void PrintKeyboardList(KeyboardList *list)
     }
 }
 
+void InitFlags(Flags *flags)
+{
+    flags->showHelp = false;
+    flags->verbose = false;
+    flags->keyboardConfig = keyboardEgOreo;
+}
+
+void ParseFlags(Flags *flags, int argc, const char **argv)
+{
+    for (int i = 1; i < argc && argv[i][0] == '-'; i++) {
+        switch (argv[i][1]) {
+        case 'h':
+            flags->showHelp = true;
+            break;
+
+        case 'k':
+            i++;
+            switch (argv[i][0]) {
+            case 'q': flags->keyboardConfig = keyboardCherryMxBrownAbs; break;
+            case 'w': flags->keyboardConfig = keyboardEgOreo; break;
+            }
+            break;
+
+        case 'v':
+            flags->verbose = true;
+            break;
+        }
+    }
+}
+
 BOOL WINAPI Exit(DWORD dwCtrlType)
 {
     FreeHook();
@@ -133,20 +138,20 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
     switch (wParam) {
     case WM_LBUTTONDOWN:
-        if (enableOutput) puts("Pressed left mouse");
+        if (flags.verbose) puts("Pressed left mouse");
         break;
     case WM_LBUTTONUP:
-        if (enableOutput) puts("Released left mouse");
+        if (flags.verbose) puts("Released left mouse");
         break;
     case WM_RBUTTONDOWN:
-        if (enableOutput) puts("Pressed right mouse");
+        if (flags.verbose) puts("Pressed right mouse");
         break;
     case WM_RBUTTONUP:
-        if (enableOutput) puts("Released right mouse");
+        if (flags.verbose) puts("Released right mouse");
         break;
     case WM_MOUSEWHEEL: {
         short wheelDelta = HIWORD(mouse->mouseData);
-        if (enableOutput) {
+        if (flags.verbose) {
             if (wheelDelta > 0) {
                 puts("Scroll forward");
             } else {
@@ -169,12 +174,12 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
         if (!IsKeyDown(key)) {
             ToggleKeyDown(key);
             PlaySample(keyboardSample[key]);
-            if (enableOutput) printf("Pressed key:  %c (0x%X)\n", key, key);
+            if (flags.verbose) printf("Pressed key:  %c (0x%X)\n", key, key);
         }
         break;
     case WM_KEYUP:
         ToggleKeyDown(key);
-        if (enableOutput) printf("Released key: %c (0x%X)\n", key, key);
+        if (flags.verbose) printf("Released key: %c (0x%X)\n", key, key);
         break;
     }
     return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
@@ -195,7 +200,7 @@ void ToggleKeyDown(DWORD key)
 void InitAudio()
 {
     BASS_Init(-1, 44100, 0, NULL, NULL);
-    LoadSampleset(keyboardSample, keyboardConfig.sampleFile, keyboardConfig.offsets, KEYBOARD_LEN);
+    LoadSampleset(keyboardSample, flags.keyboardConfig.sampleFile, flags.keyboardConfig.offsets, KEYBOARD_LEN);
 }
 
 void FreeAudio()
