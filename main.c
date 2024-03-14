@@ -14,9 +14,9 @@ Option option[] = {
 };
 
 KeyboardList keyboardList[] = {
-    {'q', "CherryMX Brown ABS"},
-    {'w', "EG Oreo"},
-    {0, NULL},
+    {'q', "CherryMX Brown ABS", &keyboardCherryMxBrownAbs},
+    {'w', "EG Oreo", &keyboardEgOreo},
+    {0, NULL, NULL},
 };
 
 Flags flags;
@@ -93,16 +93,24 @@ void ParseFlags(Flags *flags, int argc, const char **argv)
             flags->showHelp = true;
             break;
 
-        case 'k':
+        case 'k': {
             i++;
-            switch (argv[i][0]) {
-            case 'q': flags->keyboardConfig = keyboardCherryMxBrownAbs; break;
-            case 'w': flags->keyboardConfig = keyboardEgOreo; break;
-            default:
+
+            bool validFlag = false;
+
+            for (int j = 0; keyboardList[j].id; j++) {
+                if (argv[i][0] == keyboardList[j].id) {
+                    flags->keyboardConfig = *keyboardList[j].config;
+                    validFlag = true;
+                    break;
+                }
+            }
+
+            if (!validFlag) {
                 printf("Unknown keyboard sampleset flag: %c\n", argv[i][0]);
-                break;
             }
             break;
+        }
 
         case 'v':
             flags->verbose = true;

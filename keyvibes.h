@@ -28,6 +28,7 @@ extern Option
 typedef struct {
     char id;
     const char *name;
+    KeyboardConfig *config;
 } KeyboardList;
 
 extern KeyboardList
