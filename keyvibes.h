@@ -3,9 +3,7 @@
 #include <stdbool.h>
 #include <windows.h>
 #include "bass.h"
-
-#define KV_VERSION "0.2"
-#define KEYBOARD_LEN 255
+#include "config.h"
 
 typedef struct {
     DWORD start, length;
