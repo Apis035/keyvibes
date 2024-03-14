@@ -98,11 +98,18 @@ void ParseFlags(Flags *flags, int argc, const char **argv)
             switch (argv[i][0]) {
             case 'q': flags->keyboardConfig = keyboardCherryMxBrownAbs; break;
             case 'w': flags->keyboardConfig = keyboardEgOreo; break;
+            default:
+                printf("Unknown keyboard sampleset flag: %c\n", argv[i][0]);
+                break;
             }
             break;
 
         case 'v':
             flags->verbose = true;
+            break;
+
+        default:
+            printf("Unknown flag: %s\n", argv[i]);
             break;
         }
     }
