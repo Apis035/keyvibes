@@ -8,6 +8,15 @@
 #define KEYBOARD_LEN 255
 
 typedef struct {
+    DWORD start, length;
+} SampleOffset;
+
+typedef struct {
+    const char *sampleFile;
+    SampleOffset offsets[KEYBOARD_LEN];
+} KeyboardConfig;
+
+typedef struct {
     char flag;
     const char *optional;
     const char *description;
@@ -57,10 +66,6 @@ extern void
 extern void
     InitAudio(),
     FreeAudio();
-
-typedef struct {
-    DWORD start, length;
-} SampleOffset;
 
 extern void
     LoadSampleset(HSAMPLE *sampleset, const char *file, SampleOffset *offset, size_t length),
