@@ -5,6 +5,9 @@
 #include "bass.h"
 #include "config.h"
 
+//---------------------------------------------------------
+// Type
+
 typedef struct {
     DWORD start, length;
 } SampleOffset;
@@ -20,23 +23,11 @@ typedef struct {
     const char *description;
 } Option;
 
-extern Option
-    option[];
-
 typedef struct {
     char id;
     const char *name;
     KeyboardConfig *config;
 } KeyboardList;
-
-extern KeyboardList
-    keyboardList[];
-
-extern void
-    PrintHeader(),
-    PrintHelp(const char *argv0),
-    PrintOption(Option *option),
-    PrintKeyboardList(KeyboardList *list);
 
 typedef struct {
     bool showHelp;
@@ -44,19 +35,40 @@ typedef struct {
     KeyboardConfig keyboardConfig;
 } Flags;
 
+//---------------------------------------------------------
+// Global variable
+
+extern Option
+    option[];
+
+extern KeyboardList
+    keyboardList[];
+
 extern Flags
     flags;
-
-extern void
-    InitFlags(Flags *flags),
-    ParseFlags(Flags *flags, int argc, const char **argv);
-
-extern BOOL WINAPI
-    Exit(DWORD dwCtrlType);
 
 extern HHOOK
     MouseHook,
     KeyboardHook;
+
+extern bool
+    keystate[KEYBOARD_LEN];
+
+//---------------------------------------------------------
+// Function prototype
+
+extern BOOL WINAPI
+    Exit(DWORD dwCtrlType);
+
+extern void
+    PrintHeader(),
+    PrintHelp(const char *argv0),
+    PrintOption(Option *option),
+    PrintKeyboardList(KeyboardList *list);
+
+extern void
+    InitFlags(Flags *flags),
+    ParseFlags(Flags *flags, int argc, const char **argv);
 
 extern void
     InitHook(),
@@ -65,9 +77,6 @@ extern void
 extern LRESULT CALLBACK
     MouseProc(int nCode, WPARAM wParam, LPARAM lParam),
     KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);
-
-extern bool
-    keystate[KEYBOARD_LEN];
 
 extern bool
     IsKeyDown(DWORD key);

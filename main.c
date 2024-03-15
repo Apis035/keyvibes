@@ -4,6 +4,9 @@
 #include <windows.h>
 #include "bass.h"
 
+//---------------------------------------------------------
+// Global variable
+
 HSAMPLE keyboardSample[KEYBOARD_LEN];
 
 Option option[] = {
@@ -20,6 +23,9 @@ KeyboardList keyboardList[] = {
 };
 
 Flags flags;
+
+//---------------------------------------------------------
+// Main
 
 int main(int argc, char **argv)
 {
@@ -41,6 +47,17 @@ int main(int argc, char **argv)
     SetConsoleCtrlHandler(Exit, TRUE);
     while (GetMessage(NULL, NULL, 0, 0));
 }
+
+BOOL WINAPI Exit(DWORD dwCtrlType)
+{
+    FreeHook();
+    FreeAudio();
+    ExitProcess(0);
+    return TRUE;
+}
+
+//---------------------------------------------------------
+// Help message
 
 void PrintHeader()
 {
@@ -77,6 +94,9 @@ void PrintKeyboardList(KeyboardList *list)
         printf("  %c  %s\n", list[i].id, list[i].name);
     }
 }
+
+//---------------------------------------------------------
+// Flag parsing
 
 void InitFlags(Flags *flags)
 {
@@ -123,13 +143,8 @@ void ParseFlags(Flags *flags, int argc, const char **argv)
     }
 }
 
-BOOL WINAPI Exit(DWORD dwCtrlType)
-{
-    FreeHook();
-    FreeAudio();
-    ExitProcess(0);
-    return TRUE;
-}
+//---------------------------------------------------------
+// Hooks
 
 HHOOK
     MouseHook,
@@ -200,6 +215,9 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
 }
 
+//---------------------------------------------------------
+// Repeating keypress prevention
+
 bool keystate[KEYBOARD_LEN];
 
 bool IsKeyDown(DWORD key)
@@ -211,6 +229,9 @@ void ToggleKeyDown(DWORD key)
 {
     keystate[key] = !keystate[key];
 }
+
+//---------------------------------------------------------
+// Audio
 
 void InitAudio()
 {
