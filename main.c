@@ -121,6 +121,7 @@ void ParseFlags(Flags *flags, int argc, const char **argv)
             for (int j = 0; keyboardList[j].id; j++) {
                 if (argv[i][0] == keyboardList[j].id) {
                     flags->keyboardConfig = *keyboardList[j].config;
+                    printf("Using keyboard sampleset: %s\n", keyboardList[j].name);
                     validFlag = true;
                     break;
                 }
