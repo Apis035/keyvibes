@@ -1,5 +1,5 @@
 #include "keyvibes.h"
 
-extern KeyboardConfig
+extern KeyboardSampleset
     keyboardEgOreo,
     keyboardCherryMxBrownAbs;

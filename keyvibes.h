@@ -15,7 +15,7 @@ typedef struct {
 typedef struct {
     const char *sampleFile;
     SampleOffset offsets[KEYBOARD_LEN];
-} KeyboardConfig;
+} KeyboardSampleset;
 
 typedef struct {
     char flag;
@@ -26,13 +26,13 @@ typedef struct {
 typedef struct {
     char id;
     const char *name;
-    KeyboardConfig *config;
+    KeyboardSampleset *sampleset;
 } KeyboardList;
 
 typedef struct {
     bool showHelp;
     bool verbose;
-    KeyboardConfig keyboardConfig;
+    KeyboardSampleset keyboardSampleset;
 } Flags;
 
 //---------------------------------------------------------

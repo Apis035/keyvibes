@@ -1,6 +1,6 @@
 #include "../keyboard.h"
 
-KeyboardConfig keyboardEgOreo = {
+KeyboardSampleset keyboardEgOreo = {
     .sampleFile = "audio/eg-oreo.ogg",
     .offsets = {
         [VK_ESCAPE]     = {971, 142},

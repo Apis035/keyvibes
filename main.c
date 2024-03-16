@@ -102,7 +102,7 @@ void InitFlags(Flags *flags)
 {
     flags->showHelp = false;
     flags->verbose = false;
-    flags->keyboardConfig = keyboardEgOreo;
+    flags->keyboardSampleset = keyboardEgOreo;
 }
 
 void ParseFlags(Flags *flags, int argc, const char **argv)
@@ -119,7 +119,7 @@ void ParseFlags(Flags *flags, int argc, const char **argv)
 
             for (int j = 0; keyboardList[j].id; j++) {
                 if (id == keyboardList[j].id) {
-                    flags->keyboardConfig = *keyboardList[j].config;
+                    flags->keyboardSampleset = *keyboardList[j].sampleset;
                     printf("Using keyboard sampleset: %s\n", keyboardList[j].name);
                     validFlag = true;
                     break;
@@ -236,7 +236,7 @@ void ToggleKeyDown(DWORD key)
 void InitAudio()
 {
     BASS_Init(-1, 44100, 0, NULL, NULL);
-    LoadSampleset(keyboardSample, flags.keyboardConfig.sampleFile, flags.keyboardConfig.offsets, KEYBOARD_LEN);
+    LoadSampleset(keyboardSample, flags.keyboardSampleset.sampleFile, flags.keyboardSampleset.offsets, KEYBOARD_LEN);
 }
 
 void FreeAudio()

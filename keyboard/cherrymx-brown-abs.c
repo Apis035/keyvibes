@@ -1,6 +1,6 @@
 #include "../keyboard.h"
 
-KeyboardConfig keyboardCherryMxBrownAbs = {
+KeyboardSampleset keyboardCherryMxBrownAbs = {
     .sampleFile = "audio/cherrymx-brown-abs.ogg",
     .offsets = {
         [VK_ESCAPE]     = {1402, 170},
