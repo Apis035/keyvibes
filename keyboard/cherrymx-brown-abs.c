@@ -1,6 +1,7 @@
 #include "../keyboard.h"
 
 KeyboardSampleset keyboardCherryMxBrownAbs = {
+    .name = "CherryMX Brown ABS",
     .sampleFile = "audio/cherrymx-brown-abs.ogg",
     .offsets = {
         [VK_ESCAPE]     = {1402, 170},

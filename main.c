@@ -17,9 +17,9 @@ Option option[] = {
 };
 
 KeyboardList keyboardList[] = {
-    {'q', "CherryMX Brown ABS", &keyboardCherryMxBrownAbs},
-    {'w', "EG Oreo", &keyboardEgOreo},
-    {0, NULL, NULL},
+    {'q', &keyboardCherryMxBrownAbs},
+    {'w', &keyboardEgOreo},
+    {0, NULL},
 };
 
 Flags flags;
@@ -91,7 +91,7 @@ void PrintOption(Option *option)
 void PrintKeyboardList(KeyboardList *list)
 {
     for (size_t i = 0; list[i].id; i++) {
-        printf("  %c  %s\n", list[i].id, list[i].name);
+        printf("  %c  %s\n", list[i].id, list[i].sampleset->name);
     }
 }
 
@@ -120,7 +120,7 @@ void ParseFlags(Flags *flags, int argc, const char **argv)
             for (int j = 0; keyboardList[j].id; j++) {
                 if (id == keyboardList[j].id) {
                     flags->keyboardSampleset = *keyboardList[j].sampleset;
-                    printf("Using keyboard sampleset: %s\n", keyboardList[j].name);
+                    printf("Using keyboard sampleset: %s\n", keyboardList[j].sampleset->name);
                     validFlag = true;
                     break;
                 }

@@ -1,6 +1,7 @@
 #include "../keyboard.h"
 
 KeyboardSampleset keyboardEgOreo = {
+    .name = "EG Oreo",
     .sampleFile = "audio/eg-oreo.ogg",
     .offsets = {
         [VK_ESCAPE]     = {971, 142},

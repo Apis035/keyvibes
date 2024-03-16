@@ -13,6 +13,7 @@ typedef struct {
 } SampleOffset;
 
 typedef struct {
+    const char *name;
     const char *sampleFile;
     SampleOffset offsets[KEYBOARD_LEN];
 } KeyboardSampleset;
@@ -25,7 +26,6 @@ typedef struct {
 
 typedef struct {
     char id;
-    const char *name;
     KeyboardSampleset *sampleset;
 } KeyboardList;
 
