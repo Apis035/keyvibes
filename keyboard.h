@@ -3,4 +3,5 @@
 extern KeyboardSampleset
     keyboardEgOreo,
     keyboardCherryMxBlackAbs,
+    keyboardCherryMxBlackPbt,
     keyboardCherryMxBrownAbs;
