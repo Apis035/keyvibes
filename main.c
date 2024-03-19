@@ -22,6 +22,7 @@ KeyboardList keyboardList[] = {
     {'e', &keyboardCherryMxBlackAbs},
     {'r', &keyboardCherryMxBlackPbt},
     {'t', &keyboardCherryMxBlueAbs},
+    {'y', &keyboardCherryMxBluePbt},
     {0, NULL},
 };
 
