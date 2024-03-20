@@ -8,4 +8,5 @@ extern KeyboardSampleset
     keyboardCherryMxBluePbt,
     keyboardCherryMxRedAbs,
     keyboardCherryMxRedPbt,
+    keyboardCherryMxBrownPbt,
     keyboardCherryMxBrownAbs;

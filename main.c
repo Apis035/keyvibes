@@ -18,6 +18,7 @@ Option option[] = {
 
 KeyboardList keyboardList[] = {
     {'q', &keyboardCherryMxBrownAbs},
+    {'o', &keyboardCherryMxBrownPbt},
     {'w', &keyboardEgOreo},
     {'e', &keyboardCherryMxBlackAbs},
     {'r', &keyboardCherryMxBlackPbt},
