@@ -17,15 +17,15 @@ Option option[] = {
 };
 
 KeyboardList keyboardList[] = {
-    {'q', &keyboardCherryMxBrownAbs},
-    {'o', &keyboardCherryMxBrownPbt},
-    {'w', &keyboardEgOreo},
-    {'e', &keyboardCherryMxBlackAbs},
-    {'r', &keyboardCherryMxBlackPbt},
-    {'t', &keyboardCherryMxBlueAbs},
-    {'y', &keyboardCherryMxBluePbt},
-    {'u', &keyboardCherryMxRedAbs},
-    {'i', &keyboardCherryMxRedPbt},
+    {'q', &keyboardCherryMxBlackAbs},
+    {'a', &keyboardCherryMxBlackPbt},
+    {'w', &keyboardCherryMxBlueAbs},
+    {'s', &keyboardCherryMxBluePbt},
+    {'e', &keyboardCherryMxBrownAbs},
+    {'d', &keyboardCherryMxBrownPbt},
+    {'r', &keyboardCherryMxRedAbs},
+    {'f', &keyboardCherryMxRedPbt},
+    {'t', &keyboardEgOreo},
     {0, NULL},
 };
 

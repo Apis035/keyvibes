@@ -1,12 +1,12 @@
 #include "keyvibes.h"
 
 extern KeyboardSampleset
-    keyboardEgOreo,
     keyboardCherryMxBlackAbs,
     keyboardCherryMxBlackPbt,
     keyboardCherryMxBlueAbs,
     keyboardCherryMxBluePbt,
+    keyboardCherryMxBrownPbt,
+    keyboardCherryMxBrownAbs,
     keyboardCherryMxRedAbs,
     keyboardCherryMxRedPbt,
-    keyboardCherryMxBrownPbt,
-    keyboardCherryMxBrownAbs;
+    keyboardEgOreo;
