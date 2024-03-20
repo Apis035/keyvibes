@@ -111,7 +111,7 @@ void InitFlags(Flags *flags)
 {
     flags->showHelp = false;
     flags->verbose = false;
-    flags->keyboardSampleset = keyboardEgOreo;
+    flags->keyboardSampleset = *keyboardList[0].sampleset;
 }
 
 void ParseFlags(Flags *flags, int argc, const char **argv)
