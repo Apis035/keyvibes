@@ -9,4 +9,5 @@ extern KeyboardSampleset
     keyboardCherryMxBrownAbs,
     keyboardCherryMxRedAbs,
     keyboardCherryMxRedPbt,
+    keyboardEgCrystalPurple,
     keyboardEgOreo;
