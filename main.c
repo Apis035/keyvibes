@@ -24,6 +24,7 @@ KeyboardList keyboardList[] = {
     {'t', &keyboardCherryMxBlueAbs},
     {'y', &keyboardCherryMxBluePbt},
     {'u', &keyboardCherryMxRedAbs},
+    {'i', &keyboardCherryMxRedPbt},
     {0, NULL},
 };
 
@@ -286,7 +287,7 @@ HSAMPLE SliceSample(HSAMPLE sample, BASS_SAMPLE info, void *data, SampleOffset o
     DWORD start  = BASS_ChannelSeconds2Bytes(sample, (double)offset.start  / 1000);
     DWORD length = BASS_ChannelSeconds2Bytes(sample, (double)offset.length / 1000);
 
-    HSAMPLE slice = BASS_SampleCreate(length, info.freq, info.chans, 1, 0);
+    HSAMPLE slice = BASS_SampleCreate(length, info.freq, info.chans, 5, 0);
     BASS_SampleSetData(slice, (void *)((char *)data + start));
 
     return slice;
