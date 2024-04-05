@@ -1215,6 +1215,9 @@ static KeyboardSampleset
         },
     };
 
+//---------------------------------------------------------
+// Keyboard sampleset list
+
 KeyboardList keyboardList[] = {
     {'q', &CherryMxBlackAbs},
     {'a', &CherryMxBlackPbt},
