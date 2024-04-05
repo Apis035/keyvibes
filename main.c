@@ -1,6 +1,6 @@
-#include "keyvibes.h"
 #include <stdio.h>
 #include <windows.h>
+#include "keyvibes.h"
 #include "bass.h"
 
 //---------------------------------------------------------
