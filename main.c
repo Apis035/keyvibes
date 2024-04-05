@@ -1,5 +1,4 @@
 #include "keyvibes.h"
-#include "keyboard.h"
 #include <stdio.h>
 #include <windows.h>
 #include "bass.h"
@@ -14,21 +13,6 @@ Option option[] = {
     {'k', "set", "Set keyboard sampleset"},
     {'v', "", "Print pressed key information"},
     {0, NULL, NULL},
-};
-
-KeyboardList keyboardList[] = {
-    {'q', &keyboardCherryMxBlackAbs},
-    {'a', &keyboardCherryMxBlackPbt},
-    {'w', &keyboardCherryMxBlueAbs},
-    {'s', &keyboardCherryMxBluePbt},
-    {'e', &keyboardCherryMxBrownAbs},
-    {'d', &keyboardCherryMxBrownPbt},
-    {'r', &keyboardCherryMxRedAbs},
-    {'f', &keyboardCherryMxRedPbt},
-    {'t', &keyboardEgCrystalPurple},
-    {'y', &keyboardEgOreo},
-    {'u', &keyboardToprePurpleHybridPbt},
-    {0, NULL},
 };
 
 Flags flags;
