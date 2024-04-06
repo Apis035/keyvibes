@@ -193,6 +193,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     DWORD key = keyboard->vkCode;
 
     switch (wParam) {
+    case WM_SYSKEYDOWN:
     case WM_KEYDOWN:
         if (!IsKeyDown(key)) {
             ToggleKeyDown(key);
