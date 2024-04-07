@@ -35,6 +35,7 @@ typedef struct {
         bool verbose;
     } flags;
     KeyboardSampleset keyboardSampleset;
+    HSAMPLE keyboardSample[KEYBOARD_LEN];
 } Config;
 
 //---------------------------------------------------------

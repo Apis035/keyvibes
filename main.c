@@ -6,8 +6,6 @@
 //---------------------------------------------------------
 // Global variable
 
-HSAMPLE keyboardSample[KEYBOARD_LEN];
-
 Option option[] = {
     {'h', "", "Print this help message"},
     {'k', "set", "Set keyboard sampleset"},
@@ -197,7 +195,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     case WM_KEYDOWN:
         if (!IsKeyDown(key)) {
             ToggleKeyDown(key);
-            PlaySample(keyboardSample[key]);
+            PlaySample(config.keyboardSample[key]);
             if (config.flags.verbose) printf("Pressed key:  %c (0x%X)\n", key, key);
         }
         break;
@@ -230,12 +228,12 @@ void ToggleKeyDown(DWORD key)
 void InitAudio()
 {
     BASS_Init(-1, 44100, 0, NULL, NULL);
-    LoadSampleset(keyboardSample, config.keyboardSampleset.sampleFile, config.keyboardSampleset.offsets, KEYBOARD_LEN);
+    LoadSampleset(config.keyboardSample, config.keyboardSampleset.sampleFile, config.keyboardSampleset.offsets, KEYBOARD_LEN);
 }
 
 void FreeAudio()
 {
-    FreeSampleset(keyboardSample, KEYBOARD_LEN);
+    FreeSampleset(config.keyboardSample, KEYBOARD_LEN);
     BASS_Free();
 }
 
