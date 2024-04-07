@@ -42,20 +42,20 @@ typedef struct {
 // Global variable
 
 extern Option
-    option[];
+    OPTION[];
 
 extern KeyboardList
-    keyboardList[];
+    KEYBOARD_LIST[];
 
 extern Config
-    config;
+    CONFIG;
 
 extern HHOOK
-    MouseHook,
-    KeyboardHook;
+    MOUSE_HOOK,
+    KEYBOARD_HOOK;
 
 extern bool
-    keystate[KEYBOARD_LEN];
+    KEYSTATE[KEYBOARD_LEN];
 
 //---------------------------------------------------------
 // Function prototype

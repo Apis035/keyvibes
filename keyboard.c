@@ -1218,7 +1218,7 @@ static KeyboardSampleset
 //---------------------------------------------------------
 // Keyboard sampleset list
 
-KeyboardList keyboardList[] = {
+KeyboardList KEYBOARD_LIST[] = {
     {'q', &CherryMxBlackAbs},
     {'a', &CherryMxBlackPbt},
     {'w', &CherryMxBlueAbs},

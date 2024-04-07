@@ -6,14 +6,14 @@
 //---------------------------------------------------------
 // Global variable
 
-Option option[] = {
+Option OPTION[] = {
     {'h', "", "Print this help message"},
     {'k', "set", "Set keyboard sampleset"},
     {'v', "", "Print pressed key information"},
     {0, NULL, NULL},
 };
 
-Config config;
+Config CONFIG;
 
 //---------------------------------------------------------
 // Main
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
     InitConfig();
     ParseFlags(argc, argv);
 
-    if (config.flags.showHelp) {
+    if (CONFIG.flags.showHelp) {
         PrintHelp(argv[0]);
     }
 
@@ -60,21 +60,21 @@ void PrintHeader()
 
 void PrintHelp(const char *argv0)
 {
-    printf("Usage: %s [option...]\n", argv0);
+    printf("Usage: %s [OPTION...]\n", argv0);
     printf("Options:\n");
-    PrintOption(option);
+    PrintOption(OPTION);
     printf("Keyboard sampleset:\n");
-    PrintKeyboardList(keyboardList);
+    PrintKeyboardList(KEYBOARD_LIST);
     exit(0);
 }
 
-void PrintOption(Option *option)
+void PrintOption(Option *OPTION)
 {
-    for (size_t i = 0; option[i].flag; i++) {
+    for (size_t i = 0; OPTION[i].flag; i++) {
         printf("  -%c %-8s %s\n",
-            option[i].flag,
-            option[i].optional,
-            option[i].description
+            OPTION[i].flag,
+            OPTION[i].optional,
+            OPTION[i].description
         );
     }
 }
@@ -91,9 +91,9 @@ void PrintKeyboardList(KeyboardList *list)
 
 void InitConfig()
 {
-    config.flags.showHelp = false;
-    config.flags.verbose = false;
-    config.keyboardSampleset = *keyboardList[0].sampleset;
+    CONFIG.flags.showHelp = false;
+    CONFIG.flags.verbose = false;
+    CONFIG.keyboardSampleset = *KEYBOARD_LIST[0].sampleset;
 }
 
 void ParseFlags(int argc, const char **argv)
@@ -101,17 +101,17 @@ void ParseFlags(int argc, const char **argv)
     for (int i = 1; i < argc && argv[i][0] == '-'; i++) {
         switch (argv[i][1]) {
         case 'h':
-            config.flags.showHelp = true;
+            CONFIG.flags.showHelp = true;
             break;
 
         case 'k': {
             bool validFlag = false;
             char id = argv[i][2] ? argv[i][2] : argv[++i][0];
 
-            for (int j = 0; keyboardList[j].id; j++) {
-                if (id == keyboardList[j].id) {
-                    config.keyboardSampleset = *keyboardList[j].sampleset;
-                    printf("Using keyboard sampleset: %s\n", keyboardList[j].sampleset->name);
+            for (int j = 0; KEYBOARD_LIST[j].id; j++) {
+                if (id == KEYBOARD_LIST[j].id) {
+                    CONFIG.keyboardSampleset = *KEYBOARD_LIST[j].sampleset;
+                    printf("Using keyboard sampleset: %s\n", KEYBOARD_LIST[j].sampleset->name);
                     validFlag = true;
                     break;
                 }
@@ -124,7 +124,7 @@ void ParseFlags(int argc, const char **argv)
         }
 
         case 'v':
-            config.flags.verbose = true;
+            CONFIG.flags.verbose = true;
             break;
 
         default:
@@ -138,19 +138,19 @@ void ParseFlags(int argc, const char **argv)
 // Hooks
 
 HHOOK
-    MouseHook,
-    KeyboardHook;
+    MOUSE_HOOK,
+    KEYBOARD_HOOK;
 
 void InitHook()
 {
-    MouseHook    = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, NULL, 0);
-    KeyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
+    MOUSE_HOOK    = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, NULL, 0);
+    KEYBOARD_HOOK = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
 }
 
 void FreeHook()
 {
-    UnhookWindowsHookEx(MouseHook);
-    UnhookWindowsHookEx(KeyboardHook);
+    UnhookWindowsHookEx(MOUSE_HOOK);
+    UnhookWindowsHookEx(KEYBOARD_HOOK);
 }
 
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -159,20 +159,20 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 
     switch (wParam) {
     case WM_LBUTTONDOWN:
-        if (config.flags.verbose) puts("Pressed left mouse");
+        if (CONFIG.flags.verbose) puts("Pressed left mouse");
         break;
     case WM_LBUTTONUP:
-        if (config.flags.verbose) puts("Released left mouse");
+        if (CONFIG.flags.verbose) puts("Released left mouse");
         break;
     case WM_RBUTTONDOWN:
-        if (config.flags.verbose) puts("Pressed right mouse");
+        if (CONFIG.flags.verbose) puts("Pressed right mouse");
         break;
     case WM_RBUTTONUP:
-        if (config.flags.verbose) puts("Released right mouse");
+        if (CONFIG.flags.verbose) puts("Released right mouse");
         break;
     case WM_MOUSEWHEEL: {
         short wheelDelta = HIWORD(mouse->mouseData);
-        if (config.flags.verbose) {
+        if (CONFIG.flags.verbose) {
             if (wheelDelta > 0) {
                 puts("Scroll forward");
             } else {
@@ -182,7 +182,7 @@ LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
         break;
     }
     }
-    return CallNextHookEx(MouseHook, nCode, wParam, lParam);
+    return CallNextHookEx(MOUSE_HOOK, nCode, wParam, lParam);
 }
 
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
@@ -195,31 +195,31 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
     case WM_KEYDOWN:
         if (!IsKeyDown(key)) {
             ToggleKeyDown(key);
-            PlaySample(config.keyboardSample[key]);
-            if (config.flags.verbose) printf("Pressed key:  %c (0x%X)\n", key, key);
+            PlaySample(CONFIG.keyboardSample[key]);
+            if (CONFIG.flags.verbose) printf("Pressed key:  %c (0x%X)\n", key, key);
         }
         break;
     case WM_KEYUP:
         ToggleKeyDown(key);
-        if (config.flags.verbose) printf("Released key: %c (0x%X)\n", key, key);
+        if (CONFIG.flags.verbose) printf("Released key: %c (0x%X)\n", key, key);
         break;
     }
-    return CallNextHookEx(KeyboardHook, nCode, wParam, lParam);
+    return CallNextHookEx(KEYBOARD_HOOK, nCode, wParam, lParam);
 }
 
 //---------------------------------------------------------
 // Repeating keypress prevention
 
-bool keystate[KEYBOARD_LEN];
+bool KEYSTATE[KEYBOARD_LEN];
 
 bool IsKeyDown(DWORD key)
 {
-    return keystate[key] == true;
+    return KEYSTATE[key] == true;
 }
 
 void ToggleKeyDown(DWORD key)
 {
-    keystate[key] = !keystate[key];
+    KEYSTATE[key] = !KEYSTATE[key];
 }
 
 //---------------------------------------------------------
@@ -228,12 +228,12 @@ void ToggleKeyDown(DWORD key)
 void InitAudio()
 {
     BASS_Init(-1, 44100, 0, NULL, NULL);
-    LoadSampleset(config.keyboardSample, config.keyboardSampleset.sampleFile, config.keyboardSampleset.offsets, KEYBOARD_LEN);
+    LoadSampleset(CONFIG.keyboardSample, CONFIG.keyboardSampleset.sampleFile, CONFIG.keyboardSampleset.offsets, KEYBOARD_LEN);
 }
 
 void FreeAudio()
 {
-    FreeSampleset(config.keyboardSample, KEYBOARD_LEN);
+    FreeSampleset(CONFIG.keyboardSample, KEYBOARD_LEN);
     BASS_Free();
 }
 
