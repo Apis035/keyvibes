@@ -30,10 +30,12 @@ typedef struct {
 } KeyboardList;
 
 typedef struct {
-    bool showHelp;
-    bool verbose;
+    struct {
+        bool showHelp;
+        bool verbose;
+    } flags;
     KeyboardSampleset keyboardSampleset;
-} Flags;
+} Config;
 
 //---------------------------------------------------------
 // Global variable
@@ -44,8 +46,8 @@ extern Option
 extern KeyboardList
     keyboardList[];
 
-extern Flags
-    flags;
+extern Config
+    config;
 
 extern HHOOK
     MouseHook,
@@ -67,8 +69,8 @@ extern void
     PrintKeyboardList(KeyboardList *list);
 
 extern void
-    InitFlags(Flags *flags),
-    ParseFlags(Flags *flags, int argc, const char **argv);
+    InitConfig(),
+    ParseFlags(int argc, const char **argv);
 
 extern void
     InitHook(),
