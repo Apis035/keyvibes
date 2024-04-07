@@ -8,8 +8,8 @@ The main idea that driven me to create this is to have the same app but fast and
 
 ## Todo/planned features
 
+- [X] Command line options
 - [ ] Volume adjustment
-- [ ] Command line options
 - [ ] Mouse click and scroll sound
 - [ ] Minimize to system tray
 - [ ] User custom soundpack
@@ -20,7 +20,9 @@ The main idea that driven me to create this is to have the same app but fast and
 
 Run `build.bat`.
 
-Uses [TCC](https://bellard.org/tcc/) to compile. To use GCC, replace `tcc` in `build.bat` to `gcc`.
+Uses [TCC](https://bellard.org/tcc/) to compile.
+
+To use GCC, replace `tcc` in `build.bat` to `gcc`.
 
 You can also use MSVC to compile.
 
