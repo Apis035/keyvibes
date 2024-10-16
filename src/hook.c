@@ -69,6 +69,13 @@ LRESULT CALLBACK KeyboardProc(int code, WPARAM wParam, LPARAM lParam)
                 __info("Keyboard: %c (0x%X)", key, key);
                 ToggleKeyboardButton(key);
                 PlaySample(g_hKeyboardSample[key]);
+
+                // Focus to edit box when typing
+                HWND hEditbox = GetDlgItem(g_hWindow, ID_TESTBOX);
+                if (GetActiveWindow() == g_hWindow && GetFocus() != hEditbox) {
+                    SetFocus(hEditbox);
+                    __debug("Focused to edit box");
+                }
             }
             break;
         }
