@@ -20,7 +20,7 @@
 // Constants
 #define APP_NAME            TEXT("Keyvibes")
 #define WINDOW_WIDTH        260
-#define WINDOW_HEIGHT       110
+#define WINDOW_HEIGHT       200
 #define MOUSE_BUTTON_LEN    2
 #define KEYBOARD_BUTTON_LEN 256
 #define SAMPLE_MAX          8

@@ -32,6 +32,10 @@ static BOOL OnCreate(HWND hwnd, LPCREATESTRUCT lpCreateStruct)
     CHECKBOX(10, 40, ID_KEYBOARD_ENABLE, "Keyboard:")
     COMBOBOX(90, 40, ID_KEYBOARD_SAMPLE)
 
+    h = CreateWindowEx(WS_EX_CLIENTEDGE, WC_EDIT, TEXT(""), WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL | ES_MULTILINE,
+        0, 70, 244, 91, hwnd, (HMENU)ID_TESTBOX, g_hInstance, NULL);
+    SetWindowFont(h, hFont, FALSE);
+
     __debug("Adding mouse sampleset list");
     h = GetDlgItem(hwnd, ID_MOUSE_SAMPLE);
     for (int i = 0; g_mspList[i] != NULL; i++)

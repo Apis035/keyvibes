@@ -12,6 +12,8 @@ enum {
     ID_MOUSE_ENABLE,
     ID_KEYBOARD_SAMPLE,
     ID_KEYBOARD_ENABLE,
+
+    ID_TESTBOX,
 };
 
 // Global instance and window handle
